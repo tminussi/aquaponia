@@ -3,11 +3,12 @@ package br.com.metrocamp.aquaponia.controller;
 import br.com.metrocamp.aquaponia.model.Dht22;
 import br.com.metrocamp.aquaponia.response.GenericResponse;
 import br.com.metrocamp.aquaponia.service.Dht22Service;
-import br.com.metrocamp.enums.SensorEnum;
+import br.com.metrocamp.aquaponia.enums.SensorEnum;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
 
 @RestController
 @RequestMapping("/dht22")
@@ -23,5 +24,17 @@ public class Dht22Controller {
     @GetMapping
     public GenericResponse<Dht22> findAll() {
         return new GenericResponse<>(SensorEnum.DHT22.getDescricao(), service.findAll());
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public GenericResponse<Dht22> create(@RequestBody Dht22 dht22) {
+        return new GenericResponse<>(SensorEnum.DHT22.getDescricao(), Collections.singletonList(service.save(dht22)));
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public GenericResponse<Dht22> create(@PathVariable String id, @RequestBody Dht22 dht22) {
+        return new GenericResponse<>(SensorEnum.DHT22.getDescricao(), Collections.singletonList(service.update(id, dht22)));
     }
 }

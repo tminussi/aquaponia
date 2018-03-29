@@ -1,4 +1,4 @@
-package br.com.metrocamp.enums;
+package br.com.metrocamp.aquaponia.enums;
 
 public enum SensorEnum {
 
